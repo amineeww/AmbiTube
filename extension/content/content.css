@@ -55,3 +55,45 @@
 .ytp-autohide .ambitube-tooltip {
   opacity: 0;
 }
+
+/* ---------------------------------------------------------------------------
+ * AmbiTube — ambient light
+ * The light is a fixed canvas behind the page (z-index -1). While it is
+ * active, YouTube's opaque backgrounds become transparent so it shows through.
+ * ------------------------------------------------------------------------- */
+
+.ambitube-light {
+  position: fixed;
+  z-index: -1;
+  transform-origin: 0 0;
+  pointer-events: none;
+  display: none;
+  will-change: transform;
+}
+
+html.ambitube-active .ambitube-light {
+  display: block;
+}
+
+html.ambitube-active ytd-app,
+html.ambitube-active ytd-masthead #background,
+html.ambitube-active ytd-watch-flexy #full-bleed-container,
+html.ambitube-active ytd-watch-flexy #player-full-bleed-container,
+html.ambitube-active #movie_player,
+html.ambitube-active #movie_player .html5-video-container {
+  background: transparent !important;
+}
+
+/* YouTube's own (native) ambient mode would fight with ours. */
+html.ambitube-active ytd-watch-flexy #cinematics,
+html.ambitube-active ytd-watch-flexy #cinematics-container {
+  display: none !important;
+}
+
+/* Keeps text readable when the light behind it is very bright. */
+html.ambitube-active ytd-watch-metadata,
+html.ambitube-active ytd-watch-flexy #secondary,
+html.ambitube-active ytd-comments,
+html.ambitube-active ytd-masthead {
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.4);
+}

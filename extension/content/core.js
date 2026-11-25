@@ -25,8 +25,15 @@
   // Settings
   // ---------------------------------------------------------------------------
 
+  // Values of the "Balanced" look. Sliders use 0–100 (or %) for readability.
   const DEFAULTS = Object.freeze({
     enabled: true,
+    intensity: 100, // Overall strength of the light (%).
+    blur: 50, // Softness (0–100).
+    spread: 50, // How far the light reaches before fading (0–100).
+    saturation: 120, // Color vividness (%).
+    smoothing: 50, // Smooths fast color changes (0 = instant, 100 = slow).
+    edge: 20, // Depth of the video border sampled for the colors (%).
   });
 
   const data = { ...DEFAULTS };

@@ -7,7 +7,7 @@
  * controls for changes.
  */
 (() => {
-  const { PlayerButton, settings, sleep, log } = globalThis.AmbiTube;
+  const { PlayerButton, AmbientLight, settings, sleep, log } = globalThis.AmbiTube;
 
   let observedControls = null;
   const controlsObserver = new MutationObserver(() => scheduleEnsure());
@@ -20,6 +20,7 @@
     if (!player) return false;
 
     const ok = PlayerButton.ensure(player);
+    AmbientLight.update();
 
     const controls = player.querySelector('.ytp-right-controls');
     if (controls && controls !== observedControls) {
@@ -57,6 +58,7 @@
     settings.onChange(() => PlayerButton.refreshAll());
 
     document.addEventListener('yt-navigate-finish', waitForPlayer);
+    AmbientLight.init();
     waitForPlayer();
     log('Ready');
   }
