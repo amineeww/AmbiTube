@@ -26,7 +26,17 @@ AmbiTube aims for the **same visual quality with a much simpler experience**:
 - **Dark and light theme**: a deep glow on dark pages, a soft pastel tint on light pages.
 - Available in **English and French**.
 
+## Supported browsers
+
+| Browser | Status |
+| --- | --- |
+| Chrome, Edge, Brave, Opera, Vivaldi, Arc (Chromium) | ✅ Same package |
+| Firefox 142+ (desktop) | ✅ Same package |
+| Safari | ❌ Not planned |
+
 ## Install (development version)
+
+**Chrome / Edge / Brave / Opera / Vivaldi**
 
 1. Download or clone this repository.
 2. Open `chrome://extensions` in Chrome.
@@ -35,6 +45,13 @@ AmbiTube aims for the **same visual quality with a much simpler experience**:
 5. Open any YouTube video: the light bulb appears next to the autoplay toggle. Click it to open the menu.
 
 After changing the code, click the reload icon on the AmbiTube card in `chrome://extensions`, then refresh YouTube.
+(Edge: `edge://extensions` · Brave: `brave://extensions` · Opera: `opera://extensions`.)
+
+**Firefox**
+
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on…** and pick `extension/manifest.json`.
+3. Open a YouTube video. (Temporary add-ons are removed when Firefox closes.)
 
 ## Project structure
 

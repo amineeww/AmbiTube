@@ -3,6 +3,17 @@
 All notable changes to AmbiTube are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] — 2026-11-25
+
+### Added
+- **Firefox support (142+).** The same package now works in Firefox:
+  Firefox ID and the "no data collected" declaration required by Mozilla
+  in the manifest, promise-based `browser.*` APIs when available, and
+  Firefox styles for the menu sliders. Passes Mozilla's `addons-linter`
+  with no error or warning.
+- Publishing guide for Firefox (addons.mozilla.org) and Microsoft Edge
+  Add-ons, and Firefox summaries (EN/FR) in `store/LISTING.md`.
+
 ## [1.0.0] — 2026-11-25
 
 First public release.

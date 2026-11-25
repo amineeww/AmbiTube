@@ -1,6 +1,10 @@
-# Publier AmbiTube sur le Chrome Web Store
+# Publier AmbiTube
 
-Guide pas à pas. Tout ce qu'il faut est dans ce dossier `store/`.
+Guide pas à pas pour le **Chrome Web Store**, puis **Firefox** et **Microsoft Edge**. Le même `.zip` sert pour les trois boutiques. Tout ce qu'il faut est dans ce dossier `store/`.
+
+---
+
+# Chrome Web Store
 
 ## 1. Créer le compte développeur (une seule fois)
 
@@ -64,3 +68,32 @@ Gratuit, public, tous les pays.
 1. Augmente `version` dans `extension/manifest.json` (ex. `1.0.1`) et complète `CHANGELOG.md`.
 2. Relance `./scripts/package.sh`.
 3. Dans le tableau de bord : **Package** → **Importer un nouveau package**, puis renvoie pour examen.
+
+---
+
+# Firefox (addons.mozilla.org)
+
+Gratuit. Le manifeste contient déjà l'identifiant Firefox (`ambitube@amineeww`) et la déclaration « aucune donnée collectée » exigée par Mozilla.
+
+1. Crée un compte sur [addons.mozilla.org](https://addons.mozilla.org) puis ouvre le [Developer Hub](https://addons.mozilla.org/developers/).
+2. **Soumettre un nouveau module** → « Sur ce site » → envoie le même `dist/AmbiTube-<version>.zip`.
+3. Question sur le code source : réponds **non** (le code n'est ni minifié ni compilé).
+4. Fiche : reprends les textes de [`LISTING.md`](LISTING.md). Le **résumé** (250 caractères max) est dans la section *Firefox*.
+5. Catégorie, licence **MIT**, politique de confidentialité : l'URL de `PRIVACY.md`.
+6. Envoie. Les vérifications automatiques sont immédiates, l'examen humain peut suivre.
+
+Avant d'envoyer, tu peux vérifier le paquet comme le fait Mozilla :
+
+```bash
+npx addons-linter extension/
+```
+
+---
+
+# Microsoft Edge Add-ons (facultatif)
+
+Gratuit. Les utilisateurs d'Edge peuvent déjà installer AmbiTube depuis le Chrome Web Store, mais une fiche Edge le rend plus visible.
+
+1. Inscris-toi au [Partner Center](https://partner.microsoft.com/dashboard/microsoftedge/overview) (programme « Microsoft Edge »).
+2. **Créer une extension** → envoie le même `.zip`.
+3. Reprends les textes, images et réponses de confidentialité de [`LISTING.md`](LISTING.md).

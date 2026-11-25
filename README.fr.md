@@ -26,7 +26,17 @@ AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 - **Thème sombre et clair** : un halo profond sur fond sombre, une teinte pastel sur fond clair.
 - Disponible en **français et en anglais**.
 
+## Navigateurs compatibles
+
+| Navigateur | État |
+| --- | --- |
+| Chrome, Edge, Brave, Opera, Vivaldi, Arc (Chromium) | ✅ Même paquet |
+| Firefox 142+ (ordinateur) | ✅ Même paquet |
+| Safari | ❌ Pas prévu |
+
 ## Installation (version de développement)
+
+**Chrome / Edge / Brave / Opera / Vivaldi**
 
 1. Télécharge ou clone ce dépôt.
 2. Ouvre `chrome://extensions` dans Chrome.
@@ -35,6 +45,13 @@ AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 5. Ouvre une vidéo YouTube : l'ampoule apparaît à côté de la lecture automatique. Clique dessus pour ouvrir le menu.
 
 Après une modification du code, clique sur l'icône de rechargement de la carte AmbiTube dans `chrome://extensions`, puis actualise YouTube.
+(Edge : `edge://extensions` · Brave : `brave://extensions` · Opera : `opera://extensions`.)
+
+**Firefox**
+
+1. Ouvre `about:debugging#/runtime/this-firefox`.
+2. Clique sur **Charger un module complémentaire temporaire…** et choisis `extension/manifest.json`.
+3. Ouvre une vidéo YouTube. (Les modules temporaires disparaissent à la fermeture de Firefox.)
 
 ## Structure du projet
 

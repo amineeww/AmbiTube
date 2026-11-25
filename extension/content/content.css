@@ -376,6 +376,38 @@ html.ambitube-active.ambitube-light-theme ytd-masthead {
   transform: scale(1.25);
 }
 
+/* Same sliders in Firefox. */
+.ambitube-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ambitube-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: #f1f1f1;
+}
+
+.ambitube-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease;
+}
+
+.ambitube-slider:hover::-moz-range-thumb,
+.ambitube-slider:active::-moz-range-thumb {
+  transform: scale(1.25);
+}
+
+.ambitube-slider:focus-visible {
+  outline-offset: 4px;
+}
+
 /* Advanced section */
 .ambitube-menu__advanced > summary {
   display: flex;

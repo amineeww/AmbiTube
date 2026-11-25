@@ -79,6 +79,24 @@ AmbiTube n'est pas affilié à YouTube ni à Google. YouTube est une marque de G
 
 ---
 
+## Firefox (addons.mozilla.org)
+
+**Summary — EN (≤ 250 characters)**
+
+```
+Ambient light for YouTube™: the colors at the edges of the video softly light up the whole page. One button, presets, immersive mode, theater view and fullscreen (ultrawide bars lit). Private: no data collected.
+```
+
+**Résumé — FR (≤ 250 caractères)**
+
+```
+Lumière ambiante pour YouTube™ : les couleurs des bords de la vidéo éclairent toute la page. Un bouton, des presets, un mode immersif, le mode cinéma et le plein écran (bandes ultrawide éclairées). Aucune donnée collectée.
+```
+
+For the detailed description, reuse the English / French texts above.
+
+---
+
 ## Privacy tab (dashboard)
 
 **Single purpose**

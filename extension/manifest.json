@@ -3,10 +3,21 @@
   "name": "__MSG_extName__",
   "short_name": "AmbiTube",
   "description": "__MSG_extDescription__",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "default_locale": "en",
   "homepage_url": "https://github.com/amineeww/AmbiTube",
   "minimum_chrome_version": "116",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ambitube@amineeww",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",

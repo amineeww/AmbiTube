@@ -7,13 +7,20 @@
 (() => {
   const AmbiTube = (globalThis.AmbiTube = globalThis.AmbiTube || {});
 
+  /**
+   * Extension APIs: Firefox exposes promise-based `browser.*`, Chromium
+   * browsers (Chrome, Edge, Brave, Opera…) expose `chrome.*`.
+   */
+  const api = globalThis.browser ?? globalThis.chrome;
+  AmbiTube.api = api;
+
   AmbiTube.log = (...args) => console.debug('[AmbiTube]', ...args);
   AmbiTube.warn = (...args) => console.warn('[AmbiTube]', ...args);
 
   /** Translated string from _locales (falls back to the key). */
   AmbiTube.t = (key, substitutions) => {
     try {
-      return chrome.i18n.getMessage(key, substitutions) || key;
+      return api.i18n.getMessage(key, substitutions) || key;
     } catch {
       return key; // Extension was reloaded or removed: keep the page working.
     }
@@ -86,7 +93,7 @@
     }
   };
 
-  // chrome.storage.sync allows ~120 writes per minute: slider moves are
+  // storage.sync allows ~120 writes per minute: slider moves are
   // applied instantly in memory and saved together once the user pauses.
   let pending = {};
   let saveTimer = 0;
@@ -97,7 +104,7 @@
     pending = {};
     if (!Object.keys(toSave).length) return;
     try {
-      await chrome.storage.sync.set(toSave);
+      await api.storage.sync.set(toSave);
     } catch (error) {
       AmbiTube.warn('Could not save settings', error);
     }
@@ -119,7 +126,7 @@
     /** Loads the saved settings (synced across the user's Chrome profile). */
     async load() {
       try {
-        Object.assign(data, await chrome.storage.sync.get(DEFAULTS));
+        Object.assign(data, await api.storage.sync.get(DEFAULTS));
       } catch (error) {
         AmbiTube.warn('Could not load settings, using defaults', error);
       }
@@ -202,7 +209,7 @@
 
   // Keep every open YouTube tab in sync when a setting changes elsewhere.
   try {
-    chrome.storage.onChanged.addListener((changes, area) => {
+    api.storage.onChanged.addListener((changes, area) => {
       if (area !== 'sync') return;
       const updated = {};
       for (const [key, { newValue }] of Object.entries(changes)) {
