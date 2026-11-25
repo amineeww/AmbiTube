@@ -11,7 +11,7 @@
 
 ---
 
-> **En cours de développement.** AmbiTube est construit étape par étape. Voir la [feuille de route](#feuille-de-route) ci-dessous.
+> **Version 1.0.** Publication sur le Chrome Web Store en préparation — voir [`store/`](store/).
 
 ## Pourquoi AmbiTube ?
 
@@ -22,7 +22,8 @@ AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 - **Des presets prêts à l'emploi** (*Subtil · Équilibré · Intense*) et jusqu'à 6 presets personnels.
 - **Quatre curseurs essentiels** (intensité, flou, étendue, couleurs) ; le reste est automatique ou rangé dans *Avancé*.
 - Un **mode immersif** optionnel qui assombrit les miniatures des vidéos suggérées.
-- Fonctionne en **mode normal, cinéma et plein écran**, en s'adaptant à chacun : en cinéma et en plein écran, les bandes noires autour de la vidéo (écrans ultrawide, films en 21:9) sont éclairées jusqu'aux bords de l'écran. Thème sombre pour l'instant, thème clair à venir.
+- Fonctionne en **mode normal, cinéma et plein écran**, en s'adaptant à chacun : en cinéma et en plein écran, les bandes noires autour de la vidéo (écrans ultrawide, films en 21:9) sont éclairées jusqu'aux bords de l'écran.
+- **Thème sombre et clair** : un halo profond sur fond sombre, une teinte pastel sur fond clair.
 - Disponible en **français et en anglais**.
 
 ## Installation (version de développement)
@@ -44,6 +45,7 @@ extension/          ← le dossier chargé par Chrome
   content/          ← scripts injectés dans YouTube
     core.js         ← espace de noms partagé, traductions, réglages
     menu.js         ← le menu des réglages (presets, curseurs, mode immersif)
+    tips.js         ← bulles de bienvenue / d'astuce (une seule fois)
     player-button.js← le bouton ampoule
     glow-renderer.js← rendu WebGL de la lumière
     ambient-light.js← quand et où la lumière s'affiche
@@ -51,7 +53,8 @@ extension/          ← le dossier chargé par Chrome
     content.css
   icons/
 assets/             ← illustrations sources (icon.svg)
-scripts/            ← scripts utilitaires (génération des icônes)
+scripts/            ← build-icons.sh, package.sh (zip pour le store)
+store/              ← textes de la fiche, visuels promo, guide de publication
 ```
 
 ## Feuille de route
@@ -59,12 +62,12 @@ scripts/            ← scripts utilitaires (génération des icônes)
 - [x] **Étape 1 — Base :** Manifest V3, traductions, bouton ampoule dans le lecteur
 - [x] **Étape 2 — Lumière ambiante :** couleurs en direct sur toute la page (modes normal et cinéma), désactivation automatique du mode ambiant natif de YouTube
 - [x] **Étape 3 — Menu :** presets, quatre curseurs principaux, section *Avancé*, réglages conservés d'une vidéo à l'autre, **mode immersif** (miniatures assombries qui se rallument au survol)
-- [ ] **Étape 4 — Bandes noires :** ~~bandes latérales en plein écran ultrawide~~ ✓, ~~bandes haut/bas pour le 21:9 en plein écran~~ ✓, détection des bandes *incrustées* dans la vidéo
-- [ ] **Étape 5 — Finitions et publication :** thème clair avec astuce au premier lancement, performances, politique de confidentialité, fiche Chrome Web Store
+- [x] **Étape 4 — Bandes noires :** bandes latérales des écrans ultrawide et bandes haut/bas des films en 21:9 éclairées en plein écran *(la détection des bandes incrustées dans la vidéo a été abandonnée volontairement : trop de risques de scintillement sur les scènes sombres)*
+- [x] **Étape 5 — Finitions et publication :** thème clair, bulles de bienvenue et d'astuce (une seule fois), pause en arrière-plan, politique de confidentialité, kit Chrome Web Store
 
 ## Confidentialité
 
-AmbiTube ne fonctionne que sur `www.youtube.com`, enregistre ses réglages dans ton profil Chrome et n'envoie aucune donnée.
+AmbiTube ne fonctionne que sur `www.youtube.com`, enregistre ses réglages dans ton profil Chrome et n'envoie aucune donnée. Voir la [politique de confidentialité](PRIVACY.md).
 
 ## Crédits
 

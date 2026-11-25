@@ -50,7 +50,6 @@
   function shouldBeActive() {
     if (!settings.get('enabled')) return false;
     if (location.pathname !== '/watch') return false;
-    if (!isDarkTheme() && getMode() !== 'fullscreen') return false; // Light theme: step 5.
     if (document.querySelector('ytd-app[miniplayer-is-active]')) return false;
     const video = getVideo();
     return !!video && !!video.closest('ytd-watch-flexy');
@@ -125,7 +124,7 @@
   function stop() {
     if (!state.active) return;
     state.active = false;
-    document.documentElement.classList.remove(ACTIVE_CLASS);
+    document.documentElement.classList.remove(ACTIVE_CLASS, 'ambitube-light-theme');
     window.removeEventListener('scroll', queueRender);
     window.removeEventListener('resize', onLayoutChange);
     state.resizeObserver?.disconnect();
@@ -170,7 +169,8 @@
   function requestFrames() {
     const { video } = state;
     if (!state.active || !video || state.frameRequest) return;
-    if (video.paused || video.ended) return;
+    // Nothing to draw while paused or while the tab is in the background.
+    if (video.paused || video.ended || document.hidden) return;
 
     if (video.requestVideoFrameCallback) {
       state.frameRequest = video.requestVideoFrameCallback(() => {
@@ -237,12 +237,16 @@
     if (!rect.width || !rect.height) return;
 
     const { reach, far } = lightReach(rect);
+    // The player stays dark in fullscreen, whatever YouTube's theme.
+    const lightTheme = !isDarkTheme() && state.mode !== 'fullscreen';
+    document.documentElement.classList.toggle('ambitube-light-theme', lightTheme);
     renderer.draw({
       area: state.area,
       video: [rect.left, rect.top, rect.width, rect.height],
       edge: (settings.get('edge') / 100) * 0.5,
       spread: reach,
       far,
+      lightTheme,
     });
   }
 
@@ -375,7 +379,10 @@
         update();
       });
       document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) update();
+        if (document.hidden) return;
+        update();
+        captureAndRender();
+        requestFrames();
       });
 
       watchAttributes();

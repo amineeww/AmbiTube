@@ -30,6 +30,7 @@
     uniform float uEdge;   // depth of the sampled edge band (0..0.5 of the video)
     uniform float uSpread; // distance (in video heights) before the light fades
     uniform float uFar;    // brightness kept far away from the video (0..1)
+    uniform float uLightTheme; // 0 = dark page, 1 = light page
 
     void main() {
       vec2 px = uArea.xy + vUv * uArea.zw;
@@ -55,7 +56,13 @@
       }
 
       float fade = mix(1.0, uFar, smoothstep(0.0, uSpread, dist));
-      gl_FragColor = vec4(color * fade, 1.0);
+
+      // Dark page: the light glows and fades to black.
+      vec3 glow = color * fade;
+      // Light page: a pastel tint of the same colors that fades to white,
+      // so dark text stays readable.
+      vec3 tint = 1.0 - (1.0 - color) * (0.4 * fade);
+      gl_FragColor = vec4(mix(glow, tint, uLightTheme), 1.0);
     }
   `;
 
@@ -142,7 +149,7 @@
       gl.generateMipmap(gl.TEXTURE_2D);
 
       this.uniforms = {};
-      for (const name of ['uFrame', 'uArea', 'uVideo', 'uEdge', 'uSpread', 'uFar']) {
+      for (const name of ['uFrame', 'uArea', 'uVideo', 'uEdge', 'uSpread', 'uFar', 'uLightTheme']) {
         this.uniforms[name] = gl.getUniformLocation(program, name);
       }
       gl.uniform1i(this.uniforms.uFrame, 0);
@@ -158,10 +165,10 @@
     }
 
     /**
-     * @param {{area: number[], video: number[], edge: number, spread: number, far: number}} params
+     * @param {{area: number[], video: number[], edge: number, spread: number, far: number, lightTheme: boolean}} params
      *   area/video: [x, y, width, height] in CSS pixels.
      */
-    draw({ area, video, edge, spread, far }) {
+    draw({ area, video, edge, spread, far, lightTheme = false }) {
       if (this.lost) return;
       const { gl, uniforms } = this;
       gl.viewport(0, 0, this.canvas.width, this.canvas.height);
@@ -170,6 +177,7 @@
       gl.uniform1f(uniforms.uEdge, edge);
       gl.uniform1f(uniforms.uSpread, spread);
       gl.uniform1f(uniforms.uFar, far);
+      gl.uniform1f(uniforms.uLightTheme, lightTheme ? 1 : 0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
 

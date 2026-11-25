@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" width="440" height="280">
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a3d"/>
+      <stop offset="0.5" stop-color="#e8446f"/>
+      <stop offset="1" stop-color="#6b3cf0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+  <rect width="440" height="280" fill="#0c0c10"/>
+  <!-- Ambient light: the edge colors of the "video" spill out -->
+  <g filter="url(#glow)" opacity="0.95">
+    <ellipse cx="120" cy="105" rx="110" ry="85" fill="#ff8a3d"/>
+    <ellipse cx="320" cy="105" rx="110" ry="85" fill="#6b3cf0"/>
+    <ellipse cx="220" cy="160" rx="120" ry="60" fill="#e8446f"/>
+  </g>
+  <!-- The video -->
+  <rect x="120" y="44" width="200" height="113" rx="8" fill="url(#screen)"/>
+  <path d="M120 120 C 170 95, 210 140, 320 105 L320 149 a8 8 0 0 1 -8 8 L128 157 a8 8 0 0 1 -8 -8 Z" fill="#000" opacity="0.18"/>
+  <!-- Title -->
+  <g transform="translate(118 196)">
+    <path transform="scale(1.25)" fill="#fff" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+    <text x="36" y="24" font-family="Inter" font-weight="700" font-size="30" fill="#fff" letter-spacing="-0.5">AmbiTube</text>
+  </g>
+  <text x="220" y="256" text-anchor="middle" font-family="Inter" font-weight="400" font-size="15" fill="#c9c9d1">Ambient lighting for YouTube™</text>
+</svg>

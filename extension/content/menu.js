@@ -221,7 +221,7 @@
         { className: 'ambitube-menu__section' },
         switchRow('enabled', 'menuAmbientLight'),
         switchRow('immersive', 'menuImmersive', 'menuImmersiveHint'),
-        h('p', { className: 'ambitube-menu__notice', textContent: t('menuDarkOnly') }),
+        h('p', { className: 'ambitube-menu__notice', textContent: t('menuDarkTip') }),
       ),
       h(
         'div',
@@ -314,6 +314,7 @@
     const player = button.closest('#movie_player') || document.querySelector('#movie_player');
     if (!player) return;
     close();
+    globalThis.AmbiTube.Tips?.dismiss();
 
     state.button = button;
     state.player = player;

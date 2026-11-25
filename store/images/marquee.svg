@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a3d"/>
+      <stop offset="0.5" stop-color="#e8446f"/>
+      <stop offset="1" stop-color="#6b3cf0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="70"/></filter>
+  </defs>
+  <rect width="1400" height="560" fill="#0c0c10"/>
+  <g filter="url(#glow)" opacity="0.95">
+    <ellipse cx="820" cy="250" rx="260" ry="200" fill="#ff8a3d"/>
+    <ellipse cx="1200" cy="250" rx="260" ry="200" fill="#6b3cf0"/>
+    <ellipse cx="1010" cy="380" rx="300" ry="140" fill="#e8446f"/>
+  </g>
+  <rect x="760" y="110" width="500" height="281" rx="16" fill="url(#screen)"/>
+  <path d="M760 300 C 880 240, 990 350, 1260 260 L1260 375 a16 16 0 0 1 -16 16 L776 391 a16 16 0 0 1 -16 -16 Z" fill="#000" opacity="0.18"/>
+  <g transform="translate(130 170)">
+    <path transform="scale(3)" fill="#fff" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+    <text x="88" y="60" font-family="Inter" font-weight="700" font-size="76" fill="#fff" letter-spacing="-1.5">AmbiTube</text>
+  </g>
+  <text x="132" y="300" font-family="Inter" font-weight="400" font-size="34" fill="#d6d6de">Ambient lighting for YouTube™</text>
+  <text x="132" y="352" font-family="Inter" font-weight="400" font-size="24" fill="#9a9aa6">One button. Presets. Theater &amp; fullscreen.</text>
+</svg>

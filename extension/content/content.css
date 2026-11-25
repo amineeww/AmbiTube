@@ -94,11 +94,19 @@ html.ambitube-active ytd-watch-flexy #cinematics-container {
 }
 
 /* Keeps text readable when the light behind it is very bright. */
-html.ambitube-active ytd-watch-metadata,
-html.ambitube-active ytd-watch-flexy #secondary,
-html.ambitube-active ytd-comments,
-html.ambitube-active ytd-masthead {
+html.ambitube-active:not(.ambitube-light-theme) ytd-watch-metadata,
+html.ambitube-active:not(.ambitube-light-theme) ytd-watch-flexy #secondary,
+html.ambitube-active:not(.ambitube-light-theme) ytd-comments,
+html.ambitube-active:not(.ambitube-light-theme) ytd-masthead {
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Light theme: dark text on a pastel tint, with a soft white halo. */
+html.ambitube-active.ambitube-light-theme ytd-watch-metadata,
+html.ambitube-active.ambitube-light-theme ytd-watch-flexy #secondary,
+html.ambitube-active.ambitube-light-theme ytd-comments,
+html.ambitube-active.ambitube-light-theme ytd-masthead {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 /* ---------------------------------------------------------------------------
@@ -499,4 +507,55 @@ html.ambitube-immersive ytd-watch-flexy #secondary
 
 html.ambitube-immersive ytd-watch-metadata #description {
   background: transparent !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * AmbiTube — one-time tip bubbles (welcome, dark theme)
+ * ------------------------------------------------------------------------- */
+
+.ambitube-bubble {
+  position: absolute;
+  z-index: 2302;
+  box-sizing: border-box;
+  width: 260px;
+  max-width: calc(100% - 16px);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(28, 28, 28, 0.95);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+  color: #f1f1f1;
+  font: 400 13px/1.4 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  text-align: left;
+  text-shadow: none;
+  animation: ambitube-menu-in 0.2s ease-out;
+}
+
+.ambitube-bubble::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  transform: rotate(45deg);
+  border-radius: 0 0 3px 0;
+}
+
+.ambitube-bubble__title {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ambitube-bubble p {
+  margin: 0 0 10px;
+  color: #ddd;
+}
+
+.ambitube-bubble .ambitube-btn {
+  display: block;
+  margin: 0 0 0 auto;
 }

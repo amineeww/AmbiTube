@@ -3,6 +3,30 @@
 All notable changes to AmbiTube are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.0.0] — 2026-11-25
+
+First public release.
+
+### Added
+- **Light theme support.** On light pages the light becomes a soft pastel
+  tint of the video colors that fades to white, with a white text halo, so
+  dark text stays readable. Fullscreen always uses the dark rendering.
+- **One-time tips** pointing at the light bulb: a welcome bubble on first
+  run, and a tip about the dark theme the first time the light theme is used.
+- Privacy policy (`PRIVACY.md`, EN/FR).
+- Chrome Web Store kit in `store/`: listing texts (EN/FR), privacy answers,
+  padded store icon, promo tiles (440×280, 1400×560) and a publishing guide.
+- `scripts/package.sh` builds the store `.zip`.
+
+### Changed
+- No frame is captured while the tab is in the background.
+- The menu notice in light theme now recommends the dark theme instead of
+  saying the effect is unavailable.
+
+### Dropped
+- Detection of black bars burned into the video: on dark scenes it can
+  flicker and make the light inconsistent.
+
 ## [0.4.0] — 2026-11-25
 
 ### Added

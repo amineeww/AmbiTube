@@ -21,6 +21,8 @@
 
     const ok = PlayerButton.ensure(player);
     AmbientLight.update();
+    const button = player.querySelector('.ambitube-button');
+    if (button) globalThis.AmbiTube.Tips.maybeShow(button, player);
 
     const controls = player.querySelector('.ytp-right-controls');
     if (controls && controls !== observedControls) {

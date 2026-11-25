@@ -11,7 +11,7 @@
 
 ---
 
-> **Work in progress.** AmbiTube is being built step by step. See the [roadmap](#roadmap) below.
+> **Version 1.0.** Chrome Web Store release in preparation — see [`store/`](store/).
 
 ## Why AmbiTube?
 
@@ -22,7 +22,8 @@ AmbiTube aims for the **same visual quality with a much simpler experience**:
 - **Ready-made presets** (*Subtle · Balanced · Intense*) and up to 6 presets of your own.
 - **Four essential sliders** (intensity, blur, spread, colors); everything else is automatic or tucked away under *Advanced*.
 - An optional **immersive mode** that dims the suggested video thumbnails.
-- Works in **default view, theater view and fullscreen**, adapting to each: in theater and fullscreen the black bars around the video (ultrawide screens, 21:9 films) are lit up to the screen edges. Dark theme now, light theme coming.
+- Works in **default view, theater view and fullscreen**, adapting to each: in theater and fullscreen the black bars around the video (ultrawide screens, 21:9 films) are lit up to the screen edges.
+- **Dark and light theme**: a deep glow on dark pages, a soft pastel tint on light pages.
 - Available in **English and French**.
 
 ## Install (development version)
@@ -44,6 +45,7 @@ extension/          ← the folder loaded by Chrome
   content/          ← scripts injected into YouTube
     core.js         ← shared namespace, translations, settings
     menu.js         ← the settings menu (presets, sliders, immersive mode)
+    tips.js         ← one-time welcome / dark-theme bubbles
     player-button.js← the light bulb button
     glow-renderer.js← WebGL renderer of the light
     ambient-light.js← when and where the light is shown
@@ -51,7 +53,8 @@ extension/          ← the folder loaded by Chrome
     content.css
   icons/
 assets/             ← source artwork (icon.svg)
-scripts/            ← helper scripts (icon generation)
+scripts/            ← build-icons.sh, package.sh (store .zip)
+store/              ← store listing texts, promo images, publishing guide
 ```
 
 ## Roadmap
@@ -59,12 +62,12 @@ scripts/            ← helper scripts (icon generation)
 - [x] **Step 1 — Foundations:** Manifest V3, translations, light bulb button in the player
 - [x] **Step 2 — Ambient light:** live colors spreading over the whole page (default & theater view), native YouTube ambient mode turned off automatically
 - [x] **Step 3 — Menu:** presets, four main sliders, *Advanced* section, settings kept between videos, **immersive mode** (dimmed thumbnails that light up on hover)
-- [ ] **Step 4 — Black bars:** ~~side bars on ultrawide screens in fullscreen~~ ✓, ~~top/bottom bars for 21:9 content in fullscreen~~ ✓, detection of bars *inside* the video
-- [ ] **Step 5 — Polish & release:** light theme with a first-run tip, performance, privacy policy, Chrome Web Store listing
+- [x] **Step 4 — Black bars:** side bars on ultrawide screens and top/bottom bars of 21:9 films lit in fullscreen *(detection of bars burned into the video was dropped on purpose: too risky to flicker on dark scenes)*
+- [x] **Step 5 — Polish & release:** light theme, one-time welcome and dark-theme tips, idle in background tabs, privacy policy, Chrome Web Store kit
 
 ## Privacy
 
-AmbiTube runs only on `www.youtube.com`, stores its settings in your Chrome profile and sends no data anywhere.
+AmbiTube runs only on `www.youtube.com`, stores its settings in your Chrome profile and sends no data anywhere. See the [privacy policy](PRIVACY.md).
 
 ## Credits
 

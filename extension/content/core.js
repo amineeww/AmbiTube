@@ -67,6 +67,8 @@
     immersive: false, // Dims suggested thumbnails on the watch page.
     preset: 'balanced', // Id of the active preset, or 'custom'.
     customPresets: [], // [{ id, name, values }]
+    welcomeShown: false, // One-time welcome bubble.
+    darkTipShown: false, // One-time tip about the dark theme.
     ...BUILT_IN_PRESETS[1].values,
   });
 

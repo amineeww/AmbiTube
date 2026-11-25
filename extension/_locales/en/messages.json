@@ -31,10 +31,6 @@
     "message": "Dims suggested thumbnails until you hover them",
     "description": "Short explanation under the immersive mode switch."
   },
-  "menuDarkOnly": {
-    "message": "For now the light only shows in dark theme.",
-    "description": "Notice shown when YouTube uses the light theme."
-  },
   "menuPresets": {
     "message": "Style",
     "description": "Heading of the preset list."
@@ -110,5 +106,25 @@
   "reset": {
     "message": "Reset",
     "description": "Button that restores the Balanced look."
+  },
+  "menuDarkTip": {
+    "message": "The effect looks best in dark theme.",
+    "description": "Notice in the menu when YouTube uses the light theme."
+  },
+  "welcomeTitle": {
+    "message": "AmbiTube is on",
+    "description": "Title of the one-time welcome bubble."
+  },
+  "welcomeBody": {
+    "message": "Click the light bulb to pick a style and fine-tune the light.",
+    "description": "Text of the welcome bubble."
+  },
+  "darkThemeTip": {
+    "message": "Tip: the effect looks even better in dark theme (profile picture › Appearance).",
+    "description": "One-time tip shown when YouTube uses the light theme."
+  },
+  "gotIt": {
+    "message": "Got it",
+    "description": "Button that closes a tip bubble."
   }
 }

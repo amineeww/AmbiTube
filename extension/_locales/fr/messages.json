@@ -23,9 +23,6 @@
   "menuImmersiveHint": {
     "message": "Assombrit les miniatures suggérées, sauf au survol"
   },
-  "menuDarkOnly": {
-    "message": "Pour l'instant, la lumière ne s'affiche qu'en thème sombre."
-  },
   "menuPresets": {
     "message": "Ambiance"
   },
@@ -82,5 +79,20 @@
   },
   "reset": {
     "message": "Réinitialiser"
+  },
+  "menuDarkTip": {
+    "message": "L'effet est encore plus beau en thème sombre."
+  },
+  "welcomeTitle": {
+    "message": "AmbiTube est activé"
+  },
+  "welcomeBody": {
+    "message": "Clique sur l'ampoule pour choisir une ambiance et régler la lumière."
+  },
+  "darkThemeTip": {
+    "message": "Astuce : l'effet est encore plus beau en thème sombre (photo de profil › Apparence)."
+  },
+  "gotIt": {
+    "message": "Compris"
   }
 }
