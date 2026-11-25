@@ -19,7 +19,7 @@ Ambient light extensions already exist, and they are great, but they often expos
 AmbiTube aims for the **same visual quality with a much simpler experience**:
 
 - **One button** in the player, right next to autoplay: a small light bulb.
-- **Ready-made presets** (*Subtle · Balanced · Immersive*) and your own presets.
+- **Ready-made presets** (*Subtle · Balanced · Intense*) and up to 6 presets of your own.
 - **Four essential sliders** (intensity, blur, spread, colors); everything else is automatic or tucked away under *Advanced*.
 - An optional **immersive mode** that dims the suggested video thumbnails.
 - Works in **default and theater view**, in **dark and light theme**, and on the side bars of **ultrawide screens** in fullscreen.
@@ -31,7 +31,7 @@ AmbiTube aims for the **same visual quality with a much simpler experience**:
 2. Open `chrome://extensions` in Chrome.
 3. Turn on **Developer mode** (top right).
 4. Click **Load unpacked** and select the `extension` folder.
-5. Open any YouTube video: the light bulb appears next to the autoplay toggle.
+5. Open any YouTube video: the light bulb appears next to the autoplay toggle. Click it to open the menu.
 
 After changing the code, click the reload icon on the AmbiTube card in `chrome://extensions`, then refresh YouTube.
 
@@ -43,6 +43,7 @@ extension/          ← the folder loaded by Chrome
   _locales/         ← translations (en, fr)
   content/          ← scripts injected into YouTube
     core.js         ← shared namespace, translations, settings
+    menu.js         ← the settings menu (presets, sliders, immersive mode)
     player-button.js← the light bulb button
     glow-renderer.js← WebGL renderer of the light
     ambient-light.js← when and where the light is shown
@@ -57,7 +58,7 @@ scripts/            ← helper scripts (icon generation)
 
 - [x] **Step 1 — Foundations:** Manifest V3, translations, light bulb button in the player
 - [x] **Step 2 — Ambient light:** live colors spreading over the whole page (default & theater view), native YouTube ambient mode turned off automatically
-- [ ] **Step 3 — Menu:** presets, four main sliders, *Advanced* section, settings kept between videos, **immersive mode** (dimmed thumbnails that light up on hover)
+- [x] **Step 3 — Menu:** presets, four main sliders, *Advanced* section, settings kept between videos, **immersive mode** (dimmed thumbnails that light up on hover)
 - [ ] **Step 4 — Black bars:** detection of bars inside the video, top/bottom bars for 21:9 content, side bars on ultrawide screens in fullscreen
 - [ ] **Step 5 — Polish & release:** light theme with a first-run tip, performance, privacy policy, Chrome Web Store listing
 

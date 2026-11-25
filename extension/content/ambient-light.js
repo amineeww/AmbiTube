@@ -253,8 +253,15 @@
   // Public API
   // ---------------------------------------------------------------------------
 
+  /** Immersive mode (dimmed suggestions) works with or without the light. */
+  function updatePageModes() {
+    const immersive = !!settings.get('immersive') && location.pathname === '/watch';
+    document.documentElement.classList.toggle('ambitube-immersive', immersive);
+  }
+
   /** Starts, stops or refreshes the light depending on the page state. */
   function update() {
+    updatePageModes();
     if (!shouldBeActive()) {
       stop();
       return;
@@ -272,7 +279,7 @@
 
     init() {
       settings.onChange((changes) => {
-        if ('enabled' in changes) update();
+        if ('enabled' in changes || 'immersive' in changes) update();
         if ('blur' in changes) onResize();
         applySettings();
         queueRender();

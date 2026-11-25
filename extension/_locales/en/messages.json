@@ -14,5 +14,101 @@
   "buttonLabelOff": {
     "message": "Ambient light is off",
     "description": "Tooltip and accessible label of the player button when the effect is disabled."
+  },
+  "menuTitle": {
+    "message": "AmbiTube settings",
+    "description": "Accessible name of the settings menu."
+  },
+  "menuAmbientLight": {
+    "message": "Ambient light",
+    "description": "Main on/off switch in the menu."
+  },
+  "menuImmersive": {
+    "message": "Immersive mode",
+    "description": "Switch that dims the suggested videos."
+  },
+  "menuImmersiveHint": {
+    "message": "Dims suggested thumbnails until you hover them",
+    "description": "Short explanation under the immersive mode switch."
+  },
+  "menuDarkOnly": {
+    "message": "For now the light only shows in dark theme.",
+    "description": "Notice shown when YouTube uses the light theme."
+  },
+  "menuPresets": {
+    "message": "Style",
+    "description": "Heading of the preset list."
+  },
+  "presetSubtle": {
+    "message": "Subtle",
+    "description": "Built-in preset: soft light."
+  },
+  "presetBalanced": {
+    "message": "Balanced",
+    "description": "Built-in preset: default look."
+  },
+  "presetIntense": {
+    "message": "Intense",
+    "description": "Built-in preset: strong, vivid light."
+  },
+  "presetCustom": {
+    "message": "Custom",
+    "description": "Shown when the sliders no longer match a preset."
+  },
+  "settingIntensity": {
+    "message": "Intensity",
+    "description": "Slider: overall strength of the light."
+  },
+  "settingBlur": {
+    "message": "Blur",
+    "description": "Slider: softness of the light."
+  },
+  "settingSpread": {
+    "message": "Spread",
+    "description": "Slider: how far the light reaches."
+  },
+  "settingSaturation": {
+    "message": "Colors",
+    "description": "Slider: color vividness (saturation)."
+  },
+  "settingSmoothing": {
+    "message": "Smoothing",
+    "description": "Slider (advanced): how slowly colors follow the video."
+  },
+  "settingEdge": {
+    "message": "Edge depth",
+    "description": "Slider (advanced): how deep into the video border colors are picked."
+  },
+  "menuAdvanced": {
+    "message": "Advanced",
+    "description": "Collapsible section with extra sliders."
+  },
+  "savePreset": {
+    "message": "Save as preset",
+    "description": "Button that saves the current sliders as a new preset."
+  },
+  "presetNamePlaceholder": {
+    "message": "Preset name",
+    "description": "Placeholder of the preset name field."
+  },
+  "save": {
+    "message": "Save",
+    "description": "Confirms saving a preset."
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancels saving a preset."
+  },
+  "deletePreset": {
+    "message": "Delete preset",
+    "description": "Accessible label of the × button of a custom preset; followed by its name."
+  },
+  "defaultPresetName": {
+    "message": "My preset",
+    "description": "Default name proposed for a new preset; a number is appended."
+  },
+  "reset": {
+    "message": "Reset",
+    "description": "Button that restores the Balanced look."
   }
 }

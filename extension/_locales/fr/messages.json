@@ -10,5 +10,77 @@
   },
   "buttonLabelOff": {
     "message": "Lumière ambiante désactivée"
+  },
+  "menuTitle": {
+    "message": "Réglages AmbiTube"
+  },
+  "menuAmbientLight": {
+    "message": "Lumière ambiante"
+  },
+  "menuImmersive": {
+    "message": "Mode immersif"
+  },
+  "menuImmersiveHint": {
+    "message": "Assombrit les miniatures suggérées, sauf au survol"
+  },
+  "menuDarkOnly": {
+    "message": "Pour l'instant, la lumière ne s'affiche qu'en thème sombre."
+  },
+  "menuPresets": {
+    "message": "Ambiance"
+  },
+  "presetSubtle": {
+    "message": "Subtil"
+  },
+  "presetBalanced": {
+    "message": "Équilibré"
+  },
+  "presetIntense": {
+    "message": "Intense"
+  },
+  "presetCustom": {
+    "message": "Personnalisé"
+  },
+  "settingIntensity": {
+    "message": "Intensité"
+  },
+  "settingBlur": {
+    "message": "Flou"
+  },
+  "settingSpread": {
+    "message": "Étendue"
+  },
+  "settingSaturation": {
+    "message": "Couleurs"
+  },
+  "settingSmoothing": {
+    "message": "Lissage"
+  },
+  "settingEdge": {
+    "message": "Profondeur du bord"
+  },
+  "menuAdvanced": {
+    "message": "Avancé"
+  },
+  "savePreset": {
+    "message": "Enregistrer comme preset"
+  },
+  "presetNamePlaceholder": {
+    "message": "Nom du preset"
+  },
+  "save": {
+    "message": "Enregistrer"
+  },
+  "cancel": {
+    "message": "Annuler"
+  },
+  "deletePreset": {
+    "message": "Supprimer le preset"
+  },
+  "defaultPresetName": {
+    "message": "Mon preset"
+  },
+  "reset": {
+    "message": "Réinitialiser"
   }
 }

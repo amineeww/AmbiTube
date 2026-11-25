@@ -3,6 +3,25 @@
 All notable changes to AmbiTube are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] — 2026-11-25
+
+### Added
+- Settings menu opened by the light bulb, styled like YouTube's own menus:
+  - main on/off switch and **immersive mode** switch;
+  - presets *Subtle · Balanced · Intense*, a *Custom* state as soon as a
+    slider moves, and up to 6 saved presets of your own (deletable);
+  - four main sliders (intensity, blur, spread, colors) applied live;
+  - *Advanced* section (smoothing, edge depth) and a *Reset* button;
+  - keyboard friendly: Escape closes it, YouTube shortcuts (space, K,
+    arrows…) are not triggered while using the menu; clicking outside closes it.
+- Immersive mode: suggested thumbnails and their titles are dimmed until
+  hovered; the description box becomes transparent.
+- Notice in the menu when YouTube uses the light theme (support coming later).
+
+### Changed
+- Settings are applied instantly but saved in batches, to stay within
+  Chrome's sync storage write limits while dragging sliders.
+
 ## [0.2.0] — 2026-11-25
 
 ### Added

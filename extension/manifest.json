@@ -3,7 +3,7 @@
   "name": "__MSG_extName__",
   "short_name": "AmbiTube",
   "description": "__MSG_extDescription__",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "default_locale": "en",
   "homepage_url": "https://github.com/amineeww/AmbiTube",
   "minimum_chrome_version": "116",
@@ -27,6 +27,7 @@
       ],
       "js": [
         "content/core.js",
+        "content/menu.js",
         "content/player-button.js",
         "content/glow-renderer.js",
         "content/ambient-light.js",

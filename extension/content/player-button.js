@@ -2,7 +2,7 @@
 
 /**
  * The light bulb button shown in the YouTube player controls,
- * right before the autoplay toggle.
+ * right before the autoplay toggle. A click opens the AmbiTube menu.
  */
 (() => {
   const { t, settings } = globalThis.AmbiTube;
@@ -54,11 +54,13 @@
 
     button.append(svg, tooltip);
 
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.setAttribute('aria-expanded', 'false');
     button.addEventListener('click', (event) => {
       // Keep the click away from the player (it would toggle play/pause).
       event.preventDefault();
       event.stopPropagation();
-      settings.set('enabled', !settings.get('enabled'));
+      globalThis.AmbiTube.Menu.toggle(button);
     });
 
     render(button);

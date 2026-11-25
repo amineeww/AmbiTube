@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * AmbiTube core: shared namespace, translations and settings storage.
+ * AmbiTube core: shared namespace, translations, settings and presets.
  * Loaded first; the other content scripts read from `globalThis.AmbiTube`.
  */
 (() => {
@@ -22,22 +22,57 @@
   AmbiTube.sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   // ---------------------------------------------------------------------------
+  // Presets
+  // ---------------------------------------------------------------------------
+
+  /** Settings that make up a "look" (what a preset stores). */
+  const LOOK_KEYS = Object.freeze(['intensity', 'blur', 'spread', 'saturation', 'smoothing', 'edge']);
+
+  /** Slider ranges, shared by the menu and the validation of stored values. */
+  const RANGES = Object.freeze({
+    intensity: { min: 10, max: 100, step: 1 },
+    blur: { min: 0, max: 100, step: 1 },
+    spread: { min: 0, max: 100, step: 1 },
+    saturation: { min: 50, max: 200, step: 5 },
+    smoothing: { min: 0, max: 100, step: 1 },
+    edge: { min: 5, max: 50, step: 1 },
+  });
+
+  const BUILT_IN_PRESETS = Object.freeze([
+    {
+      id: 'subtle',
+      labelKey: 'presetSubtle',
+      values: { intensity: 65, blur: 75, spread: 25, saturation: 100, smoothing: 65, edge: 20 },
+    },
+    {
+      id: 'balanced',
+      labelKey: 'presetBalanced',
+      values: { intensity: 100, blur: 50, spread: 50, saturation: 120, smoothing: 50, edge: 20 },
+    },
+    {
+      id: 'intense',
+      labelKey: 'presetIntense',
+      values: { intensity: 100, blur: 35, spread: 85, saturation: 145, smoothing: 30, edge: 15 },
+    },
+  ]);
+
+  const MAX_CUSTOM_PRESETS = 6;
+
+  // ---------------------------------------------------------------------------
   // Settings
   // ---------------------------------------------------------------------------
 
-  // Values of the "Balanced" look. Sliders use 0–100 (or %) for readability.
   const DEFAULTS = Object.freeze({
     enabled: true,
-    intensity: 100, // Overall strength of the light (%).
-    blur: 50, // Softness (0–100).
-    spread: 50, // How far the light reaches before fading (0–100).
-    saturation: 120, // Color vividness (%).
-    smoothing: 50, // Smooths fast color changes (0 = instant, 100 = slow).
-    edge: 20, // Depth of the video border sampled for the colors (%).
+    immersive: false, // Dims suggested thumbnails on the watch page.
+    preset: 'balanced', // Id of the active preset, or 'custom'.
+    customPresets: [], // [{ id, name, values }]
+    ...BUILT_IN_PRESETS[1].values,
   });
 
-  const data = { ...DEFAULTS };
+  const data = structuredClone(DEFAULTS);
   const listeners = new Set();
+  const same = (a, b) => a === b || JSON.stringify(a) === JSON.stringify(b);
 
   const notify = (changes) => {
     for (const listener of listeners) {
@@ -49,8 +84,35 @@
     }
   };
 
-  AmbiTube.settings = {
+  // chrome.storage.sync allows ~120 writes per minute: slider moves are
+  // applied instantly in memory and saved together once the user pauses.
+  let pending = {};
+  let saveTimer = 0;
+  const flush = async () => {
+    clearTimeout(saveTimer);
+    saveTimer = 0;
+    const toSave = pending;
+    pending = {};
+    if (!Object.keys(toSave).length) return;
+    try {
+      await chrome.storage.sync.set(toSave);
+    } catch (error) {
+      AmbiTube.warn('Could not save settings', error);
+    }
+  };
+  const scheduleSave = (values) => {
+    Object.assign(pending, values);
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(flush, 400);
+  };
+  window.addEventListener('pagehide', flush);
+
+  const settings = {
     DEFAULTS,
+    LOOK_KEYS,
+    RANGES,
+    BUILT_IN_PRESETS,
+    MAX_CUSTOM_PRESETS,
 
     /** Loads the saved settings (synced across the user's Chrome profile). */
     async load() {
@@ -59,22 +121,33 @@
       } catch (error) {
         AmbiTube.warn('Could not load settings, using defaults', error);
       }
-      return { ...data };
+      return structuredClone(data);
     },
 
     get(key) {
       return data[key];
     },
 
-    async set(key, value) {
-      if (data[key] === value) return;
-      data[key] = value;
-      notify({ [key]: value });
-      try {
-        await chrome.storage.sync.set({ [key]: value });
-      } catch (error) {
-        AmbiTube.warn(`Could not save setting "${key}"`, error);
+    /** Current values of the look (intensity, blur…). */
+    look() {
+      return Object.fromEntries(LOOK_KEYS.map((key) => [key, data[key]]));
+    },
+
+    /** Changes several settings at once (one notification, one save). */
+    setMany(values) {
+      const changes = {};
+      for (const [key, value] of Object.entries(values)) {
+        if (!(key in DEFAULTS) || same(data[key], value)) continue;
+        data[key] = structuredClone(value);
+        changes[key] = data[key];
       }
+      if (!Object.keys(changes).length) return;
+      notify(changes);
+      scheduleSave(changes);
+    },
+
+    set(key, value) {
+      this.setMany({ [key]: value });
     },
 
     /** Subscribes to changes; returns an unsubscribe function. */
@@ -82,7 +155,48 @@
       listeners.add(listener);
       return () => listeners.delete(listener);
     },
+
+    // -- Presets --------------------------------------------------------------
+
+    /** Built-in presets first, then the user's own. */
+    allPresets() {
+      return [
+        ...BUILT_IN_PRESETS.map((preset) => ({ ...preset, builtIn: true })),
+        ...data.customPresets.map((preset) => ({ ...preset, builtIn: false })),
+      ];
+    },
+
+    applyPreset(id) {
+      const preset = this.allPresets().find((p) => p.id === id);
+      if (preset) this.setMany({ ...preset.values, preset: id });
+    },
+
+    /** Changes one value of the look; the preset becomes "custom". */
+    setLookValue(key, value) {
+      this.setMany({ [key]: value, preset: 'custom' });
+    },
+
+    /** Saves the current look as a new preset and selects it. */
+    saveCustomPreset(name) {
+      const presets = data.customPresets.slice(-(MAX_CUSTOM_PRESETS - 1));
+      const id = `custom-${Date.now().toString(36)}`;
+      presets.push({ id, name: name.trim().slice(0, 24), values: this.look() });
+      this.setMany({ customPresets: presets, preset: id });
+      return id;
+    },
+
+    deleteCustomPreset(id) {
+      const presets = data.customPresets.filter((p) => p.id !== id);
+      this.setMany({ customPresets: presets, preset: data.preset === id ? 'custom' : data.preset });
+    },
+
+    /** Back to the "Balanced" look (keeps on/off, immersive mode and presets). */
+    resetLook() {
+      this.applyPreset('balanced');
+    },
   };
+
+  AmbiTube.settings = settings;
 
   // Keep every open YouTube tab in sync when a setting changes elsewhere.
   try {
@@ -90,9 +204,11 @@
       if (area !== 'sync') return;
       const updated = {};
       for (const [key, { newValue }] of Object.entries(changes)) {
-        if (!(key in DEFAULTS) || data[key] === newValue) continue;
-        data[key] = newValue === undefined ? DEFAULTS[key] : newValue;
-        updated[key] = data[key];
+        if (!(key in DEFAULTS) || key in pending) continue;
+        const value = newValue === undefined ? structuredClone(DEFAULTS[key]) : newValue;
+        if (same(data[key], value)) continue;
+        data[key] = value;
+        updated[key] = value;
       }
       if (Object.keys(updated).length) notify(updated);
     });

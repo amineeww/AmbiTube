@@ -19,7 +19,7 @@ Des extensions de lumière ambiante existent déjà et elles sont très réussie
 AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 
 - **Un seul bouton** dans le lecteur, juste à côté de la lecture automatique : une petite ampoule.
-- **Des presets prêts à l'emploi** (*Subtil · Équilibré · Immersif*) et vos propres presets.
+- **Des presets prêts à l'emploi** (*Subtil · Équilibré · Intense*) et jusqu'à 6 presets personnels.
 - **Quatre curseurs essentiels** (intensité, flou, étendue, couleurs) ; le reste est automatique ou rangé dans *Avancé*.
 - Un **mode immersif** optionnel qui assombrit les miniatures des vidéos suggérées.
 - Fonctionne en **mode normal et cinéma**, en **thème sombre et clair**, et sur les bandes latérales des **écrans ultrawide** en plein écran.
@@ -31,7 +31,7 @@ AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 2. Ouvre `chrome://extensions` dans Chrome.
 3. Active le **Mode développeur** (en haut à droite).
 4. Clique sur **Charger l'extension non empaquetée** et sélectionne le dossier `extension`.
-5. Ouvre une vidéo YouTube : l'ampoule apparaît à côté de la lecture automatique.
+5. Ouvre une vidéo YouTube : l'ampoule apparaît à côté de la lecture automatique. Clique dessus pour ouvrir le menu.
 
 Après une modification du code, clique sur l'icône de rechargement de la carte AmbiTube dans `chrome://extensions`, puis actualise YouTube.
 
@@ -43,6 +43,7 @@ extension/          ← le dossier chargé par Chrome
   _locales/         ← traductions (en, fr)
   content/          ← scripts injectés dans YouTube
     core.js         ← espace de noms partagé, traductions, réglages
+    menu.js         ← le menu des réglages (presets, curseurs, mode immersif)
     player-button.js← le bouton ampoule
     glow-renderer.js← rendu WebGL de la lumière
     ambient-light.js← quand et où la lumière s'affiche
@@ -57,7 +58,7 @@ scripts/            ← scripts utilitaires (génération des icônes)
 
 - [x] **Étape 1 — Base :** Manifest V3, traductions, bouton ampoule dans le lecteur
 - [x] **Étape 2 — Lumière ambiante :** couleurs en direct sur toute la page (modes normal et cinéma), désactivation automatique du mode ambiant natif de YouTube
-- [ ] **Étape 3 — Menu :** presets, quatre curseurs principaux, section *Avancé*, réglages conservés d'une vidéo à l'autre, **mode immersif** (miniatures assombries qui se rallument au survol)
+- [x] **Étape 3 — Menu :** presets, quatre curseurs principaux, section *Avancé*, réglages conservés d'une vidéo à l'autre, **mode immersif** (miniatures assombries qui se rallument au survol)
 - [ ] **Étape 4 — Bandes noires :** détection des bandes dans la vidéo, bandes haut/bas pour le 21:9, bandes latérales en plein écran ultrawide
 - [ ] **Étape 5 — Finitions et publication :** thème clair avec astuce au premier lancement, performances, politique de confidentialité, fiche Chrome Web Store
 

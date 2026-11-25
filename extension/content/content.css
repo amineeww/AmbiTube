@@ -97,3 +97,403 @@ html.ambitube-active ytd-comments,
 html.ambitube-active ytd-masthead {
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.4);
 }
+
+/* ---------------------------------------------------------------------------
+ * AmbiTube — menu (opened by the light bulb)
+ * ------------------------------------------------------------------------- */
+
+.ambitube-button.is-open .ambitube-tooltip {
+  opacity: 0 !important;
+}
+
+.ambitube-menu {
+  position: absolute;
+  right: 12px;
+  bottom: 62px;
+  z-index: 2301;
+  box-sizing: border-box;
+  width: 304px;
+  max-width: calc(100% - 24px);
+  padding: 6px 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 12px;
+  background: rgba(28, 28, 28, 0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+  color: #eee;
+  font: 400 13px/1.35 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  text-align: left;
+  text-shadow: none;
+  cursor: default;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  animation: ambitube-menu-in 0.14s ease-out;
+}
+
+@keyframes ambitube-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.ambitube-menu *,
+.ambitube-menu *::before,
+.ambitube-menu *::after {
+  box-sizing: border-box;
+}
+
+.ambitube-menu :focus-visible {
+  outline: 2px solid #3ea6ff;
+  outline-offset: 2px;
+}
+
+.ambitube-menu__section {
+  padding: 8px 16px;
+}
+
+.ambitube-menu__section + .ambitube-menu__section,
+.ambitube-menu__footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ambitube-menu.is-disabled .ambitube-menu__section:not(:first-child) {
+  opacity: 0.45;
+}
+
+.ambitube-menu__heading {
+  margin: 2px 0 8px;
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.ambitube-menu__row {
+  padding: 6px 0;
+}
+
+.ambitube-menu__row--switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ambitube-menu__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+
+.ambitube-menu__hint {
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ambitube-menu__notice {
+  display: none;
+  margin: 6px 0 2px;
+  color: #f3c35a;
+  font-size: 12px;
+}
+
+.ambitube-menu.is-light-theme .ambitube-menu__notice {
+  display: block;
+}
+
+/* Switch */
+.ambitube-switch {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ambitube-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.ambitube-switch[aria-checked='true'] {
+  background: #f1f1f1;
+}
+
+.ambitube-switch[aria-checked='true']::after {
+  transform: translateX(16px);
+  background: #0f0f0f;
+}
+
+/* Preset chips */
+.ambitube-menu__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ambitube-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.15s ease;
+}
+
+.ambitube-chip:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ambitube-chip.is-active {
+  background: #f1f1f1;
+}
+
+.ambitube-chip__select,
+.ambitube-chip__remove {
+  height: 100%;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: #f1f1f1;
+  font: 500 13px/30px 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+.ambitube-chip__select {
+  padding: 0 12px;
+  border-radius: 8px;
+}
+
+.ambitube-chip.is-custom .ambitube-chip__select {
+  padding-right: 4px;
+}
+
+.ambitube-chip__remove {
+  width: 24px;
+  padding: 0 8px 0 2px;
+  border-radius: 0 8px 8px 0;
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.ambitube-chip__remove:hover {
+  opacity: 1;
+}
+
+.ambitube-chip.is-active .ambitube-chip__select,
+.ambitube-chip.is-active .ambitube-chip__remove {
+  color: #0f0f0f;
+}
+
+.ambitube-chip.is-placeholder .ambitube-chip__select {
+  display: inline-block;
+  cursor: default;
+  font-style: italic;
+}
+
+/* Sliders */
+.ambitube-menu__slider-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.ambitube-menu__value {
+  color: #aaa;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ambitube-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 16px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ambitube-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    #f1f1f1 var(--fill, 50%),
+    rgba(255, 255, 255, 0.2) var(--fill, 50%)
+  );
+}
+
+.ambitube-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  margin-top: -4.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease;
+}
+
+.ambitube-slider:hover::-webkit-slider-thumb,
+.ambitube-slider:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+
+/* Advanced section */
+.ambitube-menu__advanced > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.ambitube-menu__advanced > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ambitube-menu__advanced > summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-right: 4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.ambitube-menu__advanced[open] > summary {
+  margin-bottom: 6px;
+}
+
+.ambitube-menu__advanced[open] > summary::after {
+  transform: rotate(225deg);
+}
+
+/* Footer & buttons */
+.ambitube-menu__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 16px 6px;
+}
+
+.ambitube-btn {
+  height: 32px;
+  margin: 0;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f1f1;
+  font: 500 13px/32px 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ambitube-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ambitube-btn--primary {
+  margin-right: auto;
+  background: #f1f1f1;
+  color: #0f0f0f;
+}
+
+.ambitube-btn--primary:hover {
+  background: #d9d9d9;
+}
+
+.ambitube-btn--ghost {
+  background: transparent;
+  color: #aaa;
+}
+
+.ambitube-btn--ghost:hover {
+  color: #f1f1f1;
+}
+
+.ambitube-menu__save-form .ambitube-btn--primary {
+  margin-right: 0;
+}
+
+.ambitube-input {
+  flex: 1 1 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: 400 13px 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  user-select: text;
+}
+
+.ambitube-input:focus {
+  border-color: #3ea6ff;
+  outline: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * AmbiTube — immersive mode: suggestions fade into the light until hovered
+ * ------------------------------------------------------------------------- */
+
+html.ambitube-immersive ytd-watch-flexy #secondary img,
+html.ambitube-immersive ytd-watch-flexy #secondary yt-lockup-metadata-view-model,
+html.ambitube-immersive ytd-watch-flexy #secondary #details {
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+html.ambitube-immersive ytd-watch-flexy #secondary img {
+  filter: brightness(0.3) saturate(0.4);
+}
+
+html.ambitube-immersive ytd-watch-flexy #secondary yt-lockup-metadata-view-model,
+html.ambitube-immersive ytd-watch-flexy #secondary #details {
+  opacity: 0.55;
+}
+
+html.ambitube-immersive ytd-watch-flexy #secondary
+  :is(yt-lockup-view-model, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2,
+      ytd-compact-video-renderer, ytd-compact-playlist-renderer, ytd-compact-radio-renderer,
+      ytd-reel-item-renderer):is(:hover, :focus-within)
+  :is(img, yt-lockup-metadata-view-model, #details) {
+  filter: none;
+  opacity: 1;
+}
+
+html.ambitube-immersive ytd-watch-metadata #description {
+  background: transparent !important;
+}
