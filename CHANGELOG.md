@@ -3,6 +3,22 @@
 All notable changes to AmbiTube are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] — 2026-11-25
+
+### Added
+- **Fullscreen support.** The light moves inside the fullscreen element, so
+  the black bars of an ultrawide screen (or of a 21:9 film on a 16:9
+  screen) are lit by the colors of the video edges.
+
+### Changed
+- **The light adapts to the viewing mode.** In windowed view it spreads over
+  the page and fades with distance; in theater view and fullscreen the space
+  around the video is treated as part of the screen and stays lit up to the
+  screen edges (much brighter side bars on wide screens).
+- After a view change (theater, fullscreen, window resize) the light is
+  re-aligned on every frame for a moment, even while the video is paused,
+  so it follows YouTube's multi-step relayout without lag.
+
 ## [0.3.0] — 2026-11-25
 
 ### Added

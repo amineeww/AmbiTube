@@ -22,7 +22,7 @@ AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
 - **Des presets prêts à l'emploi** (*Subtil · Équilibré · Intense*) et jusqu'à 6 presets personnels.
 - **Quatre curseurs essentiels** (intensité, flou, étendue, couleurs) ; le reste est automatique ou rangé dans *Avancé*.
 - Un **mode immersif** optionnel qui assombrit les miniatures des vidéos suggérées.
-- Fonctionne en **mode normal et cinéma**, en **thème sombre et clair**, et sur les bandes latérales des **écrans ultrawide** en plein écran.
+- Fonctionne en **mode normal, cinéma et plein écran**, en s'adaptant à chacun : en cinéma et en plein écran, les bandes noires autour de la vidéo (écrans ultrawide, films en 21:9) sont éclairées jusqu'aux bords de l'écran. Thème sombre pour l'instant, thème clair à venir.
 - Disponible en **français et en anglais**.
 
 ## Installation (version de développement)
@@ -59,7 +59,7 @@ scripts/            ← scripts utilitaires (génération des icônes)
 - [x] **Étape 1 — Base :** Manifest V3, traductions, bouton ampoule dans le lecteur
 - [x] **Étape 2 — Lumière ambiante :** couleurs en direct sur toute la page (modes normal et cinéma), désactivation automatique du mode ambiant natif de YouTube
 - [x] **Étape 3 — Menu :** presets, quatre curseurs principaux, section *Avancé*, réglages conservés d'une vidéo à l'autre, **mode immersif** (miniatures assombries qui se rallument au survol)
-- [ ] **Étape 4 — Bandes noires :** détection des bandes dans la vidéo, bandes haut/bas pour le 21:9, bandes latérales en plein écran ultrawide
+- [ ] **Étape 4 — Bandes noires :** ~~bandes latérales en plein écran ultrawide~~ ✓, ~~bandes haut/bas pour le 21:9 en plein écran~~ ✓, détection des bandes *incrustées* dans la vidéo
 - [ ] **Étape 5 — Finitions et publication :** thème clair avec astuce au premier lancement, performances, politique de confidentialité, fiche Chrome Web Store
 
 ## Confidentialité

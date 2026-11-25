@@ -3,7 +3,8 @@
 /**
  * AmbientLight — decides when the light is shown and keeps it in sync with
  * the video: captures frames, follows the video's position (scroll, theater
- * view, resizing) and applies the user's settings.
+ * view, fullscreen, resizing), adapts the light to the viewing mode and
+ * applies the user's settings.
  */
 (() => {
   const { settings, GlowRenderer, log, warn } = globalThis.AmbiTube;
@@ -26,6 +27,8 @@
     frameRequest: 0,
     renderQueued: false,
     resizeObserver: null,
+    mode: 'default',
+    settleUntil: 0,
   };
 
   // ---------------------------------------------------------------------------
@@ -36,11 +39,18 @@
 
   const isDarkTheme = () => document.documentElement.hasAttribute('dark');
 
+  /** Current viewing mode: 'default' (windowed), 'theater' or 'fullscreen'. */
+  function getMode() {
+    const player = document.querySelector('#movie_player');
+    if (document.fullscreenElement || player?.classList.contains('ytp-fullscreen')) return 'fullscreen';
+    if (document.querySelector('ytd-watch-flexy[theater]')) return 'theater';
+    return 'default';
+  }
+
   function shouldBeActive() {
     if (!settings.get('enabled')) return false;
     if (location.pathname !== '/watch') return false;
-    if (document.fullscreenElement) return false; // Ultrawide support: step 4.
-    if (!isDarkTheme()) return false; // Light theme support: step 5.
+    if (!isDarkTheme() && getMode() !== 'fullscreen') return false; // Light theme: step 5.
     if (document.querySelector('ytd-app[miniplayer-is-active]')) return false;
     const video = getVideo();
     return !!video && !!video.closest('ytd-watch-flexy');
@@ -50,12 +60,24 @@
   // Setup / teardown
   // ---------------------------------------------------------------------------
 
+  /**
+   * In fullscreen only the fullscreen element (and what it contains) is shown,
+   * so the light has to move inside it to light up the black bars.
+   */
+  function placeCanvas() {
+    const { canvas } = state;
+    if (!canvas) return;
+    const fullscreen = document.fullscreenElement;
+    const host = fullscreen && !fullscreen.contains(document.body) ? fullscreen : document.body;
+    if (canvas.parentNode !== host) host.prepend(canvas);
+  }
+
   function createCanvases() {
     const canvas = document.createElement('canvas');
     canvas.className = 'ambitube-light';
     canvas.setAttribute('aria-hidden', 'true');
-    document.body.prepend(canvas);
     state.canvas = canvas;
+    placeCanvas();
 
     try {
       state.renderer = new GlowRenderer(canvas);
@@ -89,12 +111,14 @@
     document.documentElement.classList.add(ACTIVE_CLASS);
 
     window.addEventListener('scroll', queueRender, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onLayoutChange);
     state.resizeObserver = new ResizeObserver(queueRender);
+    const player = document.querySelector('#movie_player');
+    if (player) state.resizeObserver.observe(player);
 
     applySettings();
     attachVideo(getVideo());
-    onResize();
+    onLayoutChange();
     log('Ambient light on');
   }
 
@@ -103,7 +127,7 @@
     state.active = false;
     document.documentElement.classList.remove(ACTIVE_CLASS);
     window.removeEventListener('scroll', queueRender);
-    window.removeEventListener('resize', onResize);
+    window.removeEventListener('resize', onLayoutChange);
     state.resizeObserver?.disconnect();
     state.resizeObserver = null;
     attachVideo(null);
@@ -184,6 +208,27 @@
     return true;
   }
 
+  /**
+   * How far the light reaches, adapted to the viewing mode.
+   * - Windowed: the light spreads over the page and fades with distance.
+   * - Theater / fullscreen: the space around the video is part of the screen
+   *   (black bars on wide screens), so it stays lit up to the screen edges.
+   */
+  function lightReach(rect) {
+    const spread = settings.get('spread') / 100;
+    let reach = 0.3 + spread * 2.4; // In video heights.
+    let far = 0.25 + spread * 0.35; // Brightness kept far away.
+
+    if (state.mode !== 'default') {
+      const gap =
+        Math.max(rect.left, window.innerWidth - rect.right, rect.top, window.innerHeight - rect.bottom) /
+        rect.height;
+      reach = Math.max(reach, gap * (1.3 + spread * 1.5));
+      far = Math.min(0.92, far + (state.mode === 'fullscreen' ? 0.4 : 0.3));
+    }
+    return { reach, far };
+  }
+
   function render() {
     const { video, renderer } = state;
     if (!state.active || !video || !renderer || !state.hasFrame) return;
@@ -191,13 +236,39 @@
     const rect = video.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
 
+    const { reach, far } = lightReach(rect);
     renderer.draw({
       area: state.area,
       video: [rect.left, rect.top, rect.width, rect.height],
       edge: (settings.get('edge') / 100) * 0.5,
-      spread: 0.3 + (settings.get('spread') / 100) * 2.4,
-      far: 0.25 + (settings.get('spread') / 100) * 0.35,
+      spread: reach,
+      far,
     });
+  }
+
+  /**
+   * YouTube resizes and moves the player in several steps after a view change.
+   * Re-render on every animation frame for a moment so the light follows,
+   * even while the video is paused.
+   */
+  function settle(duration = 1000) {
+    const wasSettling = performance.now() < state.settleUntil;
+    state.settleUntil = performance.now() + duration;
+    if (wasSettling) return;
+    const tick = () => {
+      if (!state.active) return;
+      render();
+      if (performance.now() < state.settleUntil) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /** Called when the viewing mode may have changed. */
+  function onLayoutChange() {
+    state.mode = getMode();
+    placeCanvas();
+    onResize();
+    settle();
   }
 
   function captureAndRender() {
@@ -268,10 +339,12 @@
     }
     if (!state.active) {
       start();
-    } else {
-      attachVideo(getVideo());
-      queueRender();
+      return;
     }
+    attachVideo(getVideo());
+    placeCanvas();
+    if (getMode() !== state.mode) onLayoutChange();
+    else queueRender();
   }
 
   globalThis.AmbiTube.AmbientLight = {

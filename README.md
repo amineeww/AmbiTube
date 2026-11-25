@@ -22,7 +22,7 @@ AmbiTube aims for the **same visual quality with a much simpler experience**:
 - **Ready-made presets** (*Subtle · Balanced · Intense*) and up to 6 presets of your own.
 - **Four essential sliders** (intensity, blur, spread, colors); everything else is automatic or tucked away under *Advanced*.
 - An optional **immersive mode** that dims the suggested video thumbnails.
-- Works in **default and theater view**, in **dark and light theme**, and on the side bars of **ultrawide screens** in fullscreen.
+- Works in **default view, theater view and fullscreen**, adapting to each: in theater and fullscreen the black bars around the video (ultrawide screens, 21:9 films) are lit up to the screen edges. Dark theme now, light theme coming.
 - Available in **English and French**.
 
 ## Install (development version)
@@ -59,7 +59,7 @@ scripts/            ← helper scripts (icon generation)
 - [x] **Step 1 — Foundations:** Manifest V3, translations, light bulb button in the player
 - [x] **Step 2 — Ambient light:** live colors spreading over the whole page (default & theater view), native YouTube ambient mode turned off automatically
 - [x] **Step 3 — Menu:** presets, four main sliders, *Advanced* section, settings kept between videos, **immersive mode** (dimmed thumbnails that light up on hover)
-- [ ] **Step 4 — Black bars:** detection of bars inside the video, top/bottom bars for 21:9 content, side bars on ultrawide screens in fullscreen
+- [ ] **Step 4 — Black bars:** ~~side bars on ultrawide screens in fullscreen~~ ✓, ~~top/bottom bars for 21:9 content in fullscreen~~ ✓, detection of bars *inside* the video
 - [ ] **Step 5 — Polish & release:** light theme with a first-run tip, performance, privacy policy, Chrome Web Store listing
 
 ## Privacy

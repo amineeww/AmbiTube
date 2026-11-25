@@ -80,7 +80,10 @@ html.ambitube-active ytd-masthead #background,
 html.ambitube-active ytd-watch-flexy #full-bleed-container,
 html.ambitube-active ytd-watch-flexy #player-full-bleed-container,
 html.ambitube-active #movie_player,
-html.ambitube-active #movie_player .html5-video-container {
+html.ambitube-active #movie_player .html5-video-container,
+html.ambitube-active ytd-app:fullscreen,
+html.ambitube-active ytd-watch-flexy[fullscreen]
+  :is(#player-container, #player-container-outer, #player-container-inner, #ytd-player, #container.ytd-player) {
   background: transparent !important;
 }
 
