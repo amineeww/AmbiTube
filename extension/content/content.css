@@ -1,0 +1,57 @@
+/* ---------------------------------------------------------------------------
+ * AmbiTube — player button
+ * The button reuses YouTube's own `.ytp-button` class for size and spacing.
+ * ------------------------------------------------------------------------- */
+
+.ambitube-button {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  /* .ytp-button clips its content; the tooltip has to overflow upwards. */
+  overflow: visible !important;
+}
+
+.ambitube-button svg {
+  pointer-events: none;
+  flex: none;
+}
+
+.ambitube-button__icon {
+  fill: #fff;
+  transition: filter 0.2s ease;
+}
+
+.ambitube-button[aria-pressed='true'] .ambitube-button__icon {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55));
+}
+
+/* Tooltip, styled like YouTube's own player tooltips. */
+.ambitube-tooltip {
+  position: absolute;
+  bottom: calc(100% + 22px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 9px;
+  border-radius: 4px;
+  background: rgba(28, 28, 28, 0.9);
+  color: #eee;
+  font: 500 13px/15px 'YouTube Noto', Roboto, Arial, Helvetica, sans-serif;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.ambitube-button:hover .ambitube-tooltip,
+.ambitube-button:focus-visible .ambitube-tooltip {
+  opacity: 1;
+}
+
+/* Hidden like the rest of the controls when YouTube auto-hides them. */
+.ytp-autohide .ambitube-tooltip {
+  opacity: 0;
+}

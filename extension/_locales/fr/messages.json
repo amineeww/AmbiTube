@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "AmbiTube"
+  },
+  "extDescription": {
+    "message": "Lumière ambiante pour les vidéos YouTube™ : les couleurs de la vidéo éclairent doucement toute la page."
+  },
+  "buttonLabelOn": {
+    "message": "Lumière ambiante activée"
+  },
+  "buttonLabelOff": {
+    "message": "Lumière ambiante désactivée"
+  }
+}

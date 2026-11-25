@@ -1,0 +1,12 @@
+# Dependencies & builds
+node_modules/
+dist/
+*.zip
+*.crx
+*.pem
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

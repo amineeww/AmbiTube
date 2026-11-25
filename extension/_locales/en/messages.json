@@ -1,0 +1,18 @@
+{
+  "extName": {
+    "message": "AmbiTube",
+    "description": "Extension name. Do not translate."
+  },
+  "extDescription": {
+    "message": "Ambient lighting for YouTube™ videos: the colors of the video softly light up the whole page.",
+    "description": "Short description shown in the Chrome Web Store and chrome://extensions (max 132 characters)."
+  },
+  "buttonLabelOn": {
+    "message": "Ambient light is on",
+    "description": "Tooltip and accessible label of the player button when the effect is enabled."
+  },
+  "buttonLabelOff": {
+    "message": "Ambient light is off",
+    "description": "Tooltip and accessible label of the player button when the effect is disabled."
+  }
+}

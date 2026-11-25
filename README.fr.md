@@ -1,0 +1,75 @@
+<p align="center">
+  <img src="assets/icon.svg" width="96" alt="Logo AmbiTube">
+</p>
+
+<h1 align="center">AmbiTube</h1>
+
+<p align="center">
+  Lumière ambiante pour les vidéos YouTube™ : les couleurs de la vidéo éclairent doucement toute la page.<br>
+  <a href="README.md">English version</a>
+</p>
+
+---
+
+> **En cours de développement.** AmbiTube est construit étape par étape. Voir la [feuille de route](#feuille-de-route) ci-dessous.
+
+## Pourquoi AmbiTube ?
+
+Des extensions de lumière ambiante existent déjà et elles sont très réussies, mais elles proposent souvent des dizaines de réglages.
+AmbiTube vise **le même rendu avec une expérience beaucoup plus simple** :
+
+- **Un seul bouton** dans le lecteur, juste à côté de la lecture automatique : une petite ampoule.
+- **Des presets prêts à l'emploi** (*Subtil · Équilibré · Immersif*) et vos propres presets.
+- **Quatre curseurs essentiels** (intensité, flou, étendue, couleurs) ; le reste est automatique ou rangé dans *Avancé*.
+- Fonctionne en **mode normal et cinéma**, en **thème sombre et clair**, et sur les bandes latérales des **écrans ultrawide** en plein écran.
+- Disponible en **français et en anglais**.
+
+## Installation (version de développement)
+
+1. Télécharge ou clone ce dépôt.
+2. Ouvre `chrome://extensions` dans Chrome.
+3. Active le **Mode développeur** (en haut à droite).
+4. Clique sur **Charger l'extension non empaquetée** et sélectionne le dossier `extension`.
+5. Ouvre une vidéo YouTube : l'ampoule apparaît à côté de la lecture automatique.
+
+Après une modification du code, clique sur l'icône de rechargement de la carte AmbiTube dans `chrome://extensions`, puis actualise YouTube.
+
+## Structure du projet
+
+```
+extension/          ← le dossier chargé par Chrome
+  manifest.json
+  _locales/         ← traductions (en, fr)
+  content/          ← scripts injectés dans YouTube
+    core.js         ← espace de noms partagé, traductions, réglages
+    player-button.js← le bouton ampoule
+    main.js         ← démarrage et gestion de la navigation YouTube
+    content.css
+  icons/
+assets/             ← illustrations sources (icon.svg)
+scripts/            ← scripts utilitaires (génération des icônes)
+```
+
+## Feuille de route
+
+- [x] **Étape 1 — Base :** Manifest V3, traductions, bouton ampoule dans le lecteur
+- [ ] **Étape 2 — Lumière ambiante :** couleurs en direct sur toute la page (modes normal et cinéma), désactivation automatique du mode ambiant natif de YouTube
+- [ ] **Étape 3 — Menu :** presets, quatre curseurs principaux, section *Avancé*, réglages conservés d'une vidéo à l'autre
+- [ ] **Étape 4 — Bandes noires :** détection des bandes dans la vidéo, bandes haut/bas pour le 21:9, bandes latérales en plein écran ultrawide
+- [ ] **Étape 5 — Finitions et publication :** thème clair avec astuce au premier lancement, performances, politique de confidentialité, fiche Chrome Web Store
+
+## Confidentialité
+
+AmbiTube ne fonctionne que sur `www.youtube.com`, enregistre ses réglages dans ton profil Chrome et n'envoie aucune donnée.
+
+## Crédits
+
+AmbiTube s'inspire de [Ambient light for YouTube™](https://github.com/WesselKroos/youtube-ambilight) de **Wessel Kroos** (licence MIT).
+Icônes issues des [Material Icons](https://github.com/google/material-design-icons) de Google (licence Apache 2.0).
+Voir [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+AmbiTube n'est pas affilié à YouTube ni à Google. YouTube est une marque de Google LLC.
+
+## Licence
+
+[MIT](LICENSE) © 2026 Amine Charit
